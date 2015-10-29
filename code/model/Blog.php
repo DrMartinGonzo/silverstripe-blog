@@ -100,6 +100,10 @@ class Blog extends Page implements PermissionProvider {
 	 */
 	private static $description = 'Adds a blog to your website.';
 
+	public function getPageIcon() {
+        return '<i class="page-title--icon fa fa-2x fa-newspaper-o label-news"></i>';
+    }
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -137,6 +141,9 @@ class Blog extends Page implements PermissionProvider {
 			));
 
 			$fields->findOrMakeTab('Root.Categorisation')->addExtraClass('blog-cms-categorisation');
+
+			// move Translatable tab at the end
+    		SharakaUtil::TranslatableTabLast($fields);
 		});
 
 		return parent::getCMSFields();
@@ -294,7 +301,7 @@ class Blog extends Page implements PermissionProvider {
 
 		$members = $this->getCandidateUsers()->map()->toArray();
 
-		$editorField = ListboxField::create('Editors', 'Editors', $members)
+		$editorField = ListboxField::create('Editors', _t('Blog.Editors', 'Editors'), $members)
 			->setMultiple(true)
 			->setRightTitle('<a class="toggle-description">help</a>')
 			->setDescription('
@@ -313,7 +320,7 @@ class Blog extends Page implements PermissionProvider {
 			$editorField = $editorField->performDisabledTransformation();
 		}
 
-		$writerField = ListboxField::create('Writers', 'Writers', $members)
+		$writerField = ListboxField::create('Writers', _t('Blog.Writers', 'Writers'), $members)
 			->setMultiple(true)
 			->setRightTitle('<a class="toggle-description">help</a>')
 			->setDescription('
@@ -329,7 +336,7 @@ class Blog extends Page implements PermissionProvider {
 			$writerField = $writerField->performDisabledTransformation();
 		}
 
-		$contributorField = ListboxField::create('Contributors', 'Contributors', $members)
+		$contributorField = ListboxField::create('Contributors', _t('Blog.Contributors', 'Contributors'), $members)
 			->setMultiple(true)
 			->setRightTitle('<a class="toggle-description">help</a>')
 			->setDescription('
@@ -477,6 +484,13 @@ class Blog extends Page implements PermissionProvider {
 		$this->extend('updateGetBlogPosts', $blogPosts);
 
 		return $blogPosts;
+	}
+
+	function getOlderBlogEntryLink($currentDate) {
+		return DataObject::get_one("BlogPost", "ParentID = '$this->ID' AND PublishDate < '$currentDate'", true, 'PublishDate DESC');
+	}
+	function getNewerBlogEntryLink($currentDate) {
+		return DataObject::get_one("BlogPost", "ParentID = '$this->ID' AND PublishDate > '$currentDate'", true, 'PublishDate');
 	}
 
 	/**
@@ -628,13 +642,30 @@ class Blog_Controller extends Page_Controller {
 	/**
 	 * @return string
 	 */
-	public function index() {
+	public function index(SS_HTTPRequest $request) {
 		/**
 		 * @var Blog $dataRecord
 		 */
 		$dataRecord = $this->dataRecord;
 
 		$this->blogPosts = $dataRecord->getBlogPosts();
+
+		if($request->isAjax()) {
+			$this->response->addHeader('Content-Type', 'application/json');
+
+            $list = new SSViewer('Blog_AjaxList');
+            $title = new SSViewer('Blog_Title');
+
+            $list = $list->process($this);
+            $title = $title->process($this);
+
+            $return = array(
+                'title' => $title->value,
+                'list'  => $list->value
+            );
+
+            return json_encode($return);
+        }
 
 		return $this->render();
 	}
@@ -644,7 +675,7 @@ class Blog_Controller extends Page_Controller {
 	 *
 	 * @return SS_HTTPResponse
 	 */
-	public function profile() {
+	public function profile(SS_HTTPRequest $request) {
 		$profile = $this->getCurrentProfile();
 
 		if(!$profile) {
@@ -652,6 +683,23 @@ class Blog_Controller extends Page_Controller {
 		}
 
 		$this->blogPosts = $this->getCurrentProfilePosts();
+
+		if($request->isAjax()) {
+			$this->response->addHeader('Content-Type', 'application/json');
+
+            $list = new SSViewer('Blog_AjaxList');
+            $title = new SSViewer('Blog_Title');
+
+            $list = $list->process($this);
+            $title = $title->process($this);
+
+            $return = array(
+                'title' => $title->value,
+                'list'  => $list->value
+            );
+
+            return json_encode($return);
+        }
 
 		return $this->render();
 	}
@@ -693,7 +741,7 @@ class Blog_Controller extends Page_Controller {
 	 *
 	 * @return null|SS_HTTPResponse
 	 */
-	public function archive() {
+	public function archive(SS_HTTPRequest $request) {
 		/**
 		 * @var Blog $dataRecord
 		 */
@@ -713,6 +761,23 @@ class Blog_Controller extends Page_Controller {
 
 		if($year) {
 			$this->blogPosts = $dataRecord->getArchivedBlogPosts($year, $month, $day);
+
+			if($request->isAjax()) {
+				$this->response->addHeader('Content-Type', 'application/json');
+
+	            $list = new SSViewer('Blog_AjaxList');
+	            $title = new SSViewer('Blog_Title');
+
+	            $list = $list->process($this);
+	            $title = $title->process($this);
+
+	            $return = array(
+	                'title' => $title->value,
+	                'list'  => $list->value
+	            );
+
+	            return json_encode($return);
+	        }
 
 			return $this->render();
 		}
@@ -778,11 +843,29 @@ class Blog_Controller extends Page_Controller {
 	 *
 	 * @return null|SS_HTTPResponse
 	 */
-	public function tag() {
+	public function tag(SS_HTTPRequest $request) {
 		$tag = $this->getCurrentTag();
 
 		if($tag) {
 			$this->blogPosts = $tag->BlogPosts();
+
+			if($request->isAjax()) {
+				$this->response->addHeader('Content-Type', 'application/json');
+
+	            $list = new SSViewer('Blog_AjaxList');
+	            $title = new SSViewer('Blog_Title');
+
+	            $list = $list->process($this);
+	            $title = $title->process($this);
+
+	            $return = array(
+	                'title' => $title->value,
+	                'list'  => $list->value
+	            );
+
+	            return json_encode($return);
+	        }
+
 			return $this->render();
 		}
 
