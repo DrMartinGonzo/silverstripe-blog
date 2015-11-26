@@ -85,7 +85,7 @@ class BlogPost extends Page {
 
 	/**
 	 * The default sorting lists BlogPosts with an empty PublishDate at the top.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $default_sort = '"PublishDate" IS NULL DESC, "PublishDate" DESC';
@@ -192,13 +192,10 @@ class BlogPost extends Page {
 
 			$fields->insertAfter($summaryHolder, 'FeaturedImage');
 
-			$fields->push(HiddenField::create('MenuTitle'));
-
 			$urlSegment = $fields->dataFieldByName('URLSegment');
 			$urlSegment->setURLPrefix($self->Parent()->RelativeLink());
 
 			$fields->removeFieldsFromTab('Root.Main', array(
-				'MenuTitle',
 				'URLSegment',
 			));
 

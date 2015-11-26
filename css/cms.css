@@ -48,10 +48,12 @@
   height: 100%;
   width: 100%;
 }
-.blog-admin-sidebar ~ .blog-admin-outer > .ss-tabset #Title label {
+.blog-admin-sidebar ~ .blog-admin-outer > .ss-tabset #Title label,
+.blog-admin-sidebar ~ .blog-admin-outer > .ss-tabset #MenuTitle label {
   float: none;
 }
-.blog-admin-sidebar ~ .blog-admin-outer > .ss-tabset #Title .middleColumn, .blog-admin-sidebar ~ .blog-admin-outer > .ss-tabset #Title input {
+.blog-admin-sidebar ~ .blog-admin-outer > .ss-tabset #Title .middleColumn, .blog-admin-sidebar ~ .blog-admin-outer > .ss-tabset #Title input,
+.blog-admin-sidebar ~ .blog-admin-outer > .ss-tabset #MenuTitle .middleColumn, .blog-admin-sidebar ~ .blog-admin-outer > .ss-tabset #MenuTitle input {
   width: 100%;
   max-width: 100%;
   margin-left: 0;
