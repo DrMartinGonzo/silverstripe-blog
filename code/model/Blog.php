@@ -101,7 +101,7 @@ class Blog extends Page implements PermissionProvider {
 	private static $description = 'Adds a blog to your website.';
 
 	public function getPageIcon() {
-        return '<i class="page-title--icon fa fa-2x fa-newspaper-o label-news"></i>';
+        return '<i id="page-icon" class="page-title--icon fa fa-2x fa-newspaper-o label-news"></i>';
     }
 
 	/**
@@ -650,7 +650,8 @@ class Blog_Controller extends Page_Controller {
 
 		$this->blogPosts = $dataRecord->getBlogPosts();
 
-		if($request->isAjax()) {
+		if($request->isAjax() && "true" != $request->postVar('smoothState')) {
+
 			$this->response->addHeader('Content-Type', 'application/json');
 
             $list = new SSViewer('Blog_AjaxList');
@@ -684,7 +685,7 @@ class Blog_Controller extends Page_Controller {
 
 		$this->blogPosts = $this->getCurrentProfilePosts();
 
-		if($request->isAjax()) {
+		if($request->isAjax() && "true" != $request->postVar('smoothState')) {
 			$this->response->addHeader('Content-Type', 'application/json');
 
             $list = new SSViewer('Blog_AjaxList');
@@ -762,7 +763,7 @@ class Blog_Controller extends Page_Controller {
 		if($year) {
 			$this->blogPosts = $dataRecord->getArchivedBlogPosts($year, $month, $day);
 
-			if($request->isAjax()) {
+			if($request->isAjax() && "true" != $request->postVar('smoothState')) {
 				$this->response->addHeader('Content-Type', 'application/json');
 
 	            $list = new SSViewer('Blog_AjaxList');
@@ -849,7 +850,7 @@ class Blog_Controller extends Page_Controller {
 		if($tag) {
 			$this->blogPosts = $tag->BlogPosts();
 
-			if($request->isAjax()) {
+			if($request->isAjax() && "true" != $request->postVar('smoothState')) {
 				$this->response->addHeader('Content-Type', 'application/json');
 
 	            $list = new SSViewer('Blog_AjaxList');
