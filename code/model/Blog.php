@@ -650,7 +650,7 @@ class Blog_Controller extends Page_Controller {
 
 		$this->blogPosts = $dataRecord->getBlogPosts();
 
-		if($request->isAjax() && "true" != $request->postVar('smoothState')) {
+		if($request->isAjax() && "paginate" === $request->getHeader('X-Transition')) {
 
 			$this->response->addHeader('Content-Type', 'application/json');
 
@@ -685,7 +685,7 @@ class Blog_Controller extends Page_Controller {
 
 		$this->blogPosts = $this->getCurrentProfilePosts();
 
-		if($request->isAjax() && "true" != $request->postVar('smoothState')) {
+		if($request->isAjax() && "paginate" === $request->getHeader('X-Transition')) {
 			$this->response->addHeader('Content-Type', 'application/json');
 
             $list = new SSViewer('Blog_AjaxList');
@@ -763,7 +763,7 @@ class Blog_Controller extends Page_Controller {
 		if($year) {
 			$this->blogPosts = $dataRecord->getArchivedBlogPosts($year, $month, $day);
 
-			if($request->isAjax() && "true" != $request->postVar('smoothState')) {
+			if($request->isAjax() && "paginate" === $request->getHeader('X-Transition')) {
 				$this->response->addHeader('Content-Type', 'application/json');
 
 	            $list = new SSViewer('Blog_AjaxList');
@@ -850,7 +850,7 @@ class Blog_Controller extends Page_Controller {
 		if($tag) {
 			$this->blogPosts = $tag->BlogPosts();
 
-			if($request->isAjax() && "true" != $request->postVar('smoothState')) {
+			if($request->isAjax() && "paginate" === $request->getHeader('X-Transition')) {
 				$this->response->addHeader('Content-Type', 'application/json');
 
 	            $list = new SSViewer('Blog_AjaxList');
