@@ -15,5 +15,6 @@ class GridFieldConfig_BlogPost extends GridFieldConfig_Lumberjack {
 
 		$this->removeComponentsByType('GridFieldSiteTreeState');
 		$this->addComponent(new GridFieldBlogPostState());
+		$this->addComponent(new GridFieldThumbnail());
 	}
 }
