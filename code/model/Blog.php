@@ -112,6 +112,7 @@ class Blog extends Page implements PermissionProvider {
 		Requirements::javascript(BLOGGER_DIR . '/js/cms.js');
 
 		$self =& $this;
+		$fields = parent::getCMSFields();
 
 		$this->beforeUpdateCMSFields(function ($fields) use ($self) {
 			if(!$self->canEdit()) {
@@ -141,12 +142,12 @@ class Blog extends Page implements PermissionProvider {
 			));
 
 			$fields->findOrMakeTab('Root.Categorisation')->addExtraClass('blog-cms-categorisation');
-
-			// move Translatable tab at the end
-    		SharakaUtil::TranslatableTabLast($fields);
 		});
 
-		return parent::getCMSFields();
+		// move Translatable tab at the end
+    	SharakaUtil::TranslatableTabLast($fields);
+
+		return $fields;
 	}
 
 	/**
