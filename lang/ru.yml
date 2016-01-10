@@ -1,40 +1,60 @@
 ru:
+  ArchiveWidget:
+    PLURALNAME: 'Виджеты для архива'
+    SINGULARNAME: 'Виджет для архива'
   Blog:
     Archive: Архив
+    By: 'автор:'
     Categories: Категории
     Category: Категория
     Comments: Комментарии
     DESCRIPTION: 'Добавляет к сайту блог.'
-    PLURALNAME: Блоги
-    Posted: Отправлено
-    SINGULARNAME: Блог
-    Tag: Метка
-    Tagged: Метки
-    Tags: Метки
-    By: 'автор:'
     EDITOR: Редактор
     FILTERDESCRIPTION_AUTHOR: 'Автор: {author}'
     FILTERDESCRIPTION_CATEGORY: 'В категории: {category}'
     FILTERDESCRIPTION_DATE: 'Дата: {date}'
     FILTERDESCRIPTION_PAGE: 'Страница {page}'
     FILTERDESCRIPTION_TAG: 'С метками {tag}'
-  BlogPost:
-    SINGULARNAME: 'Запись в блоге'
+    PLURALNAME: 'Базовые страницы'
+    Posted: Отправлено
+    SINGULARNAME: Блог
+    Tag: Метка
+    Tagged: Метки
     Tags: Метки
+  BlogArchiveWidget:
+    Blog: Блог
+  BlogCategoriesWidget:
+    Blog: Блог
+    Sort:
+      Label: Сортировать
+  BlogEntry:
+    DESCRIPTION: 'Обычная страница'
+    PLURALNAME: 'Базовые страницы'
+  BlogHolder:
+    DESCRIPTION: 'Обычная страница'
+    PLURALNAME: 'Базовые страницы'
+  BlogPost:
     AUTHOR: Автор
     AdditionalCredits: 'Дополнительные сведения'
     Authors: Авторы
+    DESCRIPTION: 'Обычная страница'
+    PLURALNAME: 'Базовые страницы'
+    SINGULARNAME: 'Запись в блоге'
+    Tags: Метки
   BlogRecentPostsWidget:
     Blog: Блог
     NumberOfPosts: 'Количество записей'
   BlogTag:
-    PLURALNAME: 'Метки'
-    SINGULARNAME: 'Метка'
     Title: Заголовок
   BlogTagsWidget:
     Blog: Блог
     PLURALNAME: 'Виджеты для меток блога'
     SINGULARNAME: 'Виджет для меток блога'
+    Sort:
+      Label: Сортировать
+  BlogTree:
+    DESCRIPTION: 'Обычная страница'
+    PLURALNAME: 'Базовые страницы'
   GridFieldAddByDBField:
     Add: 'Добавить {name}'
     AddFail: 'Не удалось сохранить {class} в базе данных.'
@@ -43,3 +63,6 @@ ru:
     Draft: '<i class="btn-icon gridfield-icon btn-icon-pencil"></i> Черновик сохранен {date}'
     Published: '<i class="btn-icon gridfield-icon btn-icon-accept"></i> Опубликовано {date}'
     Timer: '<i class="gridfield-icon blog-icon-timer"></i> Опубликовать {date}'
+  TagCloudWidget:
+    PLURALNAME: 'Виджеты для облака меток'
+    SINGULARNAME: 'Виджет для облака меток'
