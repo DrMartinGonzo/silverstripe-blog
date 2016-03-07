@@ -686,6 +686,7 @@ class Blog_Controller extends Page_Controller
         $this->blogPosts = $dataRecord->getBlogPosts();
 
         if($request->isAjax() && "paginate" === $request->getHeader('X-Transition')) {
+            $this->isPaginating = true;
 
 			$this->response->addHeader('Content-Type', 'application/json');
 
