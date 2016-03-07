@@ -103,7 +103,7 @@ class Blog extends Page implements PermissionProvider
 
     public function getPageIcon()
     {
-        return '<i class="page-title--icon fa fa-2x fa-newspaper-o label-news"></i>';
+        return '<i class="page-title--icon zoomIn fa fa-2x fa-newspaper-o label-news"></i>';
     }
 
     /**
