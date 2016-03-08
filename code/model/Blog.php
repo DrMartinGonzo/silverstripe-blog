@@ -698,6 +698,7 @@ class Blog_Controller extends Page_Controller
 
             $return = array(
                 'title' => $title->value,
+                'headerimg' => 'noChange',
                 'list'  => $list->value
             );
 
@@ -733,6 +734,7 @@ class Blog_Controller extends Page_Controller
 
             $return = array(
                 'title' => $title->value,
+                'headerimg' => 'noChange',
                 'list'  => $list->value
             );
 
@@ -814,6 +816,7 @@ class Blog_Controller extends Page_Controller
 
 	            $return = array(
 	                'title' => $title->value,
+                    'headerimg' => 'noChange',
 	                'list'  => $list->value
 	            );
 
@@ -907,6 +910,7 @@ class Blog_Controller extends Page_Controller
 
 	            $return = array(
 	                'title' => $title->value,
+                    'headerimg' => 'noChange',
 	                'list'  => $list->value
 	            );
 
