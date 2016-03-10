@@ -147,9 +147,6 @@ class Blog extends Page implements PermissionProvider
             $fields->findOrMakeTab('Root.Categorisation')->addExtraClass('blog-cms-categorisation');
         });
 
-		// move Translatable tab at the end
-    	SharakaUtil::TranslatableTabLast($fields);
-
         return $fields;
     }
 
