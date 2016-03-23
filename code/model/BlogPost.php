@@ -177,6 +177,7 @@ class BlogPost extends Page
 
         $this->beforeUpdateCMSFields(function ($fields) use ($self) {
             $uploadField = UploadField::create('FeaturedImage', _t('BlogPost.FeaturedImage', 'Featured Image'));
+            $uploadField->setDescription( _t('General.FeaturedImageDesc', 'Take care not to send files bigger than 3000 pixels width.<br> If the image still does not display, try to reduce it further.') );
             $uploadField->getValidator()->setAllowedExtensions(array('jpg', 'jpeg', 'png', 'gif'));
             $uploadField->getValidator()->setAllowedMaxFileSize(52428800); // 50Mb in bytes
             /**
