@@ -718,6 +718,7 @@ class Blog_Controller extends Page_Controller
             return $this->httpError(404, 'Not Found');
         }
 
+        $this->CustomTitle = $this->Title . ' (' . $profile->Name . ')';
         $this->blogPosts = $this->getCurrentProfilePosts();
 
         if($request->isAjax() && "paginate" === $request->getHeader('X-Transition')) {
@@ -801,6 +802,12 @@ class Blog_Controller extends Page_Controller
 
         if ($year) {
             $this->blogPosts = $dataRecord->getArchivedBlogPosts($year, $month, $day);
+
+            $i18N_format = '%Y';
+            if($month) { $i18N_format = '%b %Y'; }
+            if($day) { $i18N_format = '%d %b %Y'; }
+
+            $this->CustomTitle = $this->Title . ' (' . $this->getArchiveDate()->FormatI18N($i18N_format) . ')';
 
             if($request->isAjax() && "paginate" === $request->getHeader('X-Transition')) {
 				$this->response->addHeader('Content-Type', 'application/json');
@@ -894,6 +901,7 @@ class Blog_Controller extends Page_Controller
         $tag = $this->getCurrentTag();
 
         if ($tag) {
+            $this->CustomTitle = $this->Title . ' (' . $tag->Title . ')';
             $this->blogPosts = $tag->BlogPosts();
 
             if($request->isAjax() && "paginate" === $request->getHeader('X-Transition')) {
