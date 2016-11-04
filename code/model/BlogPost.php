@@ -215,7 +215,8 @@ class BlogPost extends Page
                 'Authors',
                 _t('BlogPost.Authors', 'Authors'),
                 $self->getCandidateAuthors()->map()->toArray()
-            )->setMultiple(true);
+            )->setMultiple(true)
+             ->setEmptyString('none');
 
             $authorNames = TextField::create(
                 'AuthorNames',
@@ -260,7 +261,8 @@ class BlogPost extends Page
                     $self->Categories()
                 )
                     ->setCanCreate($self->canCreateCategories())
-                    ->setShouldLazyLoad(true),
+                    ->setShouldLazyLoad(true)
+                    ->setEmptyString('none'),
                 TagField::create(
                     'Tags',
                     _t('BlogPost.Tags', 'Tags'),
@@ -268,7 +270,8 @@ class BlogPost extends Page
                     $self->Tags()
                 )
                     ->setCanCreate($self->canCreateTags())
-                    ->setShouldLazyLoad(true),
+                    ->setShouldLazyLoad(true)
+                    ->setEmptyString('none'),
                 $authorField,
                 $authorNames
             )->setTitle('Post Options');
